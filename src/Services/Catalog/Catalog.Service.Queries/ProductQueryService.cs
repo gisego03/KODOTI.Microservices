@@ -1,4 +1,5 @@
 ﻿using Catalog.Persistence.Database;
+using Catalog.Service.Queries.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Service.Common.Collection;
 using Service.Common.Mapping;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalog.Service.Queries.DTOs
+namespace Catalog.Service.Queries
 {
     public interface IProductQueryService
     {

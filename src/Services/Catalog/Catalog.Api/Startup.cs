@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Catalog.Persistence.Database;
-using Catalog.Service.Queries.DTOs;
+using Catalog.Service.Queries;
 using Common.Logging;
 using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +29,7 @@ namespace Catalog.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             #region HealthChecks
             services.AddHealthChecks()
                 .AddCheck("self", () => HealthCheckResult.Healthy())
@@ -51,6 +47,7 @@ namespace Catalog.Api
             #region CQRS
             //Commands
             services.AddMediatR(Assembly.Load("Catalog.Service.EventHandlers"));
+
             //Queries
             services.AddTransient<IProductQueryService, ProductQueryService>();
             #endregion

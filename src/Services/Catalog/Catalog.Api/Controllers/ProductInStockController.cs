@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Service.EventHandlers.Commands;
+using Catalog.Service.Queries;
 using Catalog.Service.Queries.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,33 +17,33 @@ namespace Catalog.Api.Controllers
     public class ProductInStockController : ControllerBase
     {
         private readonly ILogger<ProductInStockController> _logger;
-        private readonly IProductQueryService productQueryService;
+        private readonly IProductInStockQueryService productInStockQueryService;
         private readonly IMediator mediator;
 
         public ProductInStockController(
-            ILogger<ProductInStockController> logger, 
-            IProductQueryService productQueryService, 
+            ILogger<ProductInStockController> logger,
+            IProductInStockQueryService productInStockQueryService, 
             IMediator mediator)
         {
             _logger = logger;
-            this.productQueryService = productQueryService;
+            this.productInStockQueryService = productInStockQueryService;
             this.mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<DataCollection<ProductDTO>> GetAll(int page = 1, int take = 10, string ids = null)
+        public async Task<DataCollection<ProductInStockDTO>> GetAll(int page = 1, int take = 10, string ids = null)
         {
             IEnumerable<int> products = null;
             if (!string.IsNullOrEmpty(ids))
                 products = ids.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => Convert.ToInt32(x));
 
-            return await productQueryService.GetAllAsync(page, take, products);
+            return await productInStockQueryService.GetAllAsync(page, take, products);
         }
 
         [HttpGet("{id}")]
-        public async Task<ProductDTO> Get(int id)
+        public async Task<ProductInStockDTO> Get(int id)
         {
-            return await productQueryService.GetAsync(id);
+            return await productInStockQueryService.GetAsync(id);
         }
 
         [HttpPost]

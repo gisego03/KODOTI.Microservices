@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Service.EventHandlers.Commands;
+using Catalog.Service.Queries;
 using Catalog.Service.Queries.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
